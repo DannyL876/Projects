@@ -56,10 +56,8 @@ Combined both late-payment columns into a single binary feature: `EverLate` (1 i
 - Did not test other model types (e.g. random forest, gradient boosting) which might capture non-linear relationships better
 - Dataset is anonymized and historical — real-world deployment would need to account for changing economic conditions not reflected in this data
 
-## Possible Next Steps (if extending further)
+## Possible Next Steps 
 - Compare against a random forest or gradient boosting model
 - Plot an ROC curve for visual comparison
 - Test additional feature engineering (e.g. income-to-debt interaction terms)
 
-## CV Bullet
-"Built a probability of default model in Python using logistic regression on a 150,000-row credit dataset; diagnosed and resolved multicollinearity between correlated features, improving AUC from 0.66 to 0.79"
