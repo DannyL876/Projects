@@ -5,13 +5,13 @@ Build a model to predict the probability that a borrower will default on credit 
 
 # Dataset
 - **Source:** "Give Me Some Credit" dataset (Kaggle)
-- **Size:** ~150,000 borrower records
+- **Size:** - 150,000 borrower records
 - **Target variable:** `SeriousDlqin2yrs` (1 = defaulted within 2 years, 0 = did not)
 
 # Checking Data
 - Checked for missing values across all columns
-- Two columns had gaps: `MonthlyIncome` (~29,700 missing) and `NumberOfDependents` (~3,900 missing)
-- Filled both using median imputation rather than mean, since income data is skewed by high earners, therefore median gives a more representative value
+- It showed that two columns had gaps. `MonthlyIncome` had 29,700 missing and `NumberOfDependents had 3,900 missing
+- To fix this I filled both using median values rather than mean, since income data is skewed by high earners, therefore median gives a more representative value
 
 # Feature Selection (Initial Model)
 Selected 8 features based on relevance to credit risk:
@@ -26,8 +26,8 @@ Selected 8 features based on relevance to credit risk:
 
 # Method
 - Split data 80/20 into training and test sets
-- Trained a **logistic regression** model (standard baseline method for binary classification/credit risk problems)
-- Evaluated using **AUC-ROC score** (measures how well the model separates defaulters from non-defaulters; 0.5 = random, 1.0 = perfect)
+- Trained a **logistic regression** model, this is a standard model for assessing credit risk
+- Evaluated using **AUC-ROC score**, this measures how well the model separates defaulters from non-defaulters, a higher AUC score the better the model
 
 # Initial Result
 - **AUC: 0.66** — better than random, but too weak to reliably assess credit risk in practice
@@ -39,7 +39,7 @@ Checked model coefficients to understand which features were driving predictions
 **Diagnosis:** The issue was likely multicollinearity because `NumberOfTime30-59DaysPastDueNotWorse` and `NumberOfTimes90DaysLate` are correlated as someone 90 days late was often also 30-59 days late previously, so the model struggled to separate their individual effects, producing unlikely and counterintuitive coefficients.
 
 # Fix
-Combined both late-payment columns into a single binary feature: `EverLate` (1 if either column > 0, else 0).
+To fix multicollinearity issue I combined both late payment columns into a single binary feature called `EverLate`. This produced a 1 if either column was greater than 0 and if not it outputted 0.
 
 # Improved Result
 - **AUC improved from 0.66 to 0.79**
